@@ -6,8 +6,7 @@ volumes: [
   hostPathVolume(mountPath: '/home/gradle/.gradle', hostPath: '/tmp/jenkins/.gradle'),
   hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
 ])
-
-
+{
 
 node ('slave_jenkins') {
 
@@ -16,11 +15,9 @@ node ('slave_jenkins') {
     
     stage ('Clone Git Terraform'){ 
         git url: 'https://github.com/Mounagit/MamboNo5.git'
-    }
+    }  
+    
 
-    
-    
-    
     
 /*    stage('Terraform init'){
         container('terraform-az') {
@@ -81,4 +78,6 @@ node ('slave_jenkins') {
     stage ('Publish test results') {
         junit 'target/surface-reports/.*.xml'
     }
+}
+
 }
