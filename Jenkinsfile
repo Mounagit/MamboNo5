@@ -1,8 +1,7 @@
 podTemplate(label: label, containers: [
   containerTemplate(name: 'terraform', image: 'mounabal/terraform_12.21', command: 'cat', ttyEnabled: true),
   containerTemplate(name: 'ansible', image: 'mounabal/ansible_2.9.3', command: 'cat', ttyEnabled: true)
-  ]),
-])
+  ])
 {
 
 node ('slave_jenkins') {
