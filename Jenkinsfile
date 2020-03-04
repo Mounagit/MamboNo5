@@ -8,6 +8,13 @@ node('slave_jenkins') {
     stage('Build du jar avec Maven') {
         sh "mvn clean package"
     }
+    
+    stage('on push le jar sur le serveur') {
+        withCredentials([sshUserPrivateKey(credentialsId: 'slave_jenkins', keyFileVariable: 'Key', passphraseVariable: '', usernameVariable: 'MounaSylvain')]) {
+            sh "scp -i \$key target/restfulweb-1.0.0-SNAPSHOT.jar MounaSylvain@52.143.140.100:/home/MounaSylvain"
+        }
+    }
+
 }
 
 
