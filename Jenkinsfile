@@ -1,14 +1,7 @@
 node ('slave_jenkins') {
-    
-  
 
     def image="version-${env.BUILD_ID}"
-    
-    stage ('Publish test results') {
-        junit 'target/surface-reports/.*.xml'
-    }
-            
-            
+
     stage ('clone git'){ 
         git url: 'https://github.com/girldevops/Restful-Webservice.git'
     }
@@ -46,12 +39,8 @@ node ('slave_jenkins') {
             )
         }
     }
-
-
-
-
-
-
     
-
+    stage ('Publish test results') {
+        junit 'target/surface-reports/.*.xml'
+    }
 }
