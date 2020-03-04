@@ -4,13 +4,13 @@ node('slave') {
     Puis on le run pour le tester
     Si il y a un rpoblème, on l'identifie et on le corrige */
     stage('Clone du git du projet'){       
-        git url: 'https://gitlab.com/projet_final1/Projet-final_Restful-Webservice.git'
+        git url: 'https://github.com/Mounagit/Code_Source.git'
     }
     
     stage('Build du jar avec Maven') {
         sh "mvn clean package"
     }
-    
+    /*
     stage('on push le jar sur le serveur') {
         withCredentials([sshUserPrivateKey(credentialsId: 'slave', keyFileVariable: 'key', passphraseVariable: '', usernameVariable: 'jpr')]) {
             sh "scp -i \$key target/restfulweb-1.0.0-SNAPSHOT.jar jpr@jpr-devops-test.francecentral.cloudapp.azure.com:/home/jpr"
@@ -59,7 +59,7 @@ node('slave') {
                 )
             
         }
-    }
+    }*/
 }
 
 
