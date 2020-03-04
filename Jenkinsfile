@@ -1,11 +1,7 @@
 podTemplate(label: label, containers: [
   containerTemplate(name: 'terraform', image: 'mounabal/terraform_12.21', command: 'cat', ttyEnabled: true),
-  containerTemplate(name: 'ansible', image: 'mounabal/ansible_2.9.3', command: 'cat', ttyEnabled: true),
-//  containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl:v1.8.8', command: 'cat', ttyEnabled: true),
-volumes: [
-  hostPathVolume(mountPath: '/home/gradle/.gradle', hostPath: '/tmp/jenkins/.gradle'),
-  hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
-  ])
+  containerTemplate(name: 'ansible', image: 'mounabal/ansible_2.9.3', command: 'cat', ttyEnabled: true)
+  ]),
 ])
 {
 
