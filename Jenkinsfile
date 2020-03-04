@@ -4,16 +4,13 @@ podTemplate(label: label, containers: [
   ])
 {
 
-node ('slave_jenkins') {
+  node ('slave_jenkins') {
 
     def image="version-${env.BUILD_ID}"
 
-    
     stage ('Clone Git Terraform'){ 
         git url: 'https://github.com/Mounagit/MamboNo5.git'
     }  
-    
-
     
 /*    stage('Terraform init'){
         container('terraform-az') {
@@ -25,7 +22,6 @@ node ('slave_jenkins') {
             }
         }  */
     
-    
     // On récupère le code Terraform dans Dockerhub pour Terrformer les VMs Test et Prod
     stage ('Job Terraform'){
         withCredentials([file(credentialsId: 'backend', variable: 'backend')]){
@@ -34,26 +30,13 @@ node ('slave_jenkins') {
             sh 'terraform apply out.tfstate'
         }
     }
-
-    stage ('Clone Git Ansible'){
-        git url: 'https://github.com/Mounagit/devopsapps.git'
-    }
-
-    
-    
-    
-
-
-
     
     // Récupération Roles Ansible et autres
     stage ('clone git'){ 
         git url: 'https://github.com/Mounagit/Projet_terraformPileComplete.git'
     }
   
-  /*
-
-    stage ('ansible') {
+/* stage ('ansible') {
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'login', passwordVariable: 'password']]){
             ansiblePlaybook(
                 credentialsId: 'MounaNeko2',
@@ -78,6 +61,6 @@ node ('slave_jenkins') {
     stage ('Publish test results') {
         junit 'target/surface-reports/.*.xml'
     }
-}
+  }
 
 }
