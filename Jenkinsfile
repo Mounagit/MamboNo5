@@ -1,4 +1,4 @@
-podTemplate(label: label, containers: [
+podTemplate(label: 'azurevm', containers: [
   containerTemplate(name: 'terraform', image: 'mounabal/terraform_12.21', command: 'cat', ttyEnabled: true),
   containerTemplate(name: 'ansible', image: 'mounabal/ansible_2.9.3', command: 'cat', ttyEnabled: true)
   ])
@@ -10,16 +10,17 @@ podTemplate(label: label, containers: [
         git url: 'https://github.com/Mounagit/MamboNo5.git'
     }  
     
-/*    stage('Terraform init'){
-        container('terraform-az') {
+    stage('Terraform init'){
+        container('terraform') {
                 // Initialize the plan 
                 sh  """
                     cd terraform-plans/create-vmss-from-image
                     terraform init -input=false
                    """
             }
-        }  */
-    
+      }
+
+    /*   
     // On récupère le code Terraform dans Dockerhub pour Terrformer les VMs Test et Prod
     stage ('Job Terraform'){
         withCredentials([file(credentialsId: 'backend', variable: 'backend')]){
@@ -34,7 +35,7 @@ podTemplate(label: label, containers: [
         git url: 'https://github.com/Mounagit/Projet_terraformPileComplete.git'
     }
   
-/* stage ('ansible') {
+ stage ('ansible') {
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'login', passwordVariable: 'password']]){
             ansiblePlaybook(
                 credentialsId: 'MounaNeko2',
@@ -46,8 +47,8 @@ podTemplate(label: label, containers: [
             )
         }
     }
-    */
-
+    
+   
     stage ('Clone Git MongoDB'){
         git url: 'https://github.com/girldevops/Restful-Webservice.git'
     }
@@ -55,9 +56,11 @@ podTemplate(label: label, containers: [
     stage ('build projet'){
         sh '/opt/apache-maven-3.6.3/bin/mvn clean install'  
     }
-    
+    */
     stage ('Publish test results') {
         junit 'target/surface-reports/.*.xml'
     }
+    
   }
+  
 }
