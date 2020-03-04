@@ -5,9 +5,7 @@ podTemplate(label: label, containers: [
 {
 
   node ('slave_jenkins') {
-
-    def image="version-${env.BUILD_ID}"
-
+    
     stage ('Clone Git Terraform'){ 
         git url: 'https://github.com/Mounagit/MamboNo5.git'
     }  
@@ -62,5 +60,4 @@ podTemplate(label: label, containers: [
         junit 'target/surface-reports/.*.xml'
     }
   }
-
 }
