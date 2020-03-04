@@ -1,7 +1,7 @@
 podTemplate(label: label, containers: [
   containerTemplate(name: 'terraform', image: 'mounabal/terraform_12.21', command: 'cat', ttyEnabled: true),
   containerTemplate(name: 'ansible', image: 'mounabal/ansible_2.9.3', command: 'cat', ttyEnabled: true),
-  containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl:v1.8.8', command: 'cat', ttyEnabled: true),
+//  containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl:v1.8.8', command: 'cat', ttyEnabled: true),
 volumes: [
   hostPathVolume(mountPath: '/home/gradle/.gradle', hostPath: '/tmp/jenkins/.gradle'),
   hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
@@ -48,19 +48,14 @@ node ('slave_jenkins') {
     
 
 
-    stage ('Clone Git Ansible'){
-        git url: 'https://github.com/girldevops/Restful-Webservice.git'
-    }
 
-    stage ('build projet'){
-        sh '/opt/apache-maven-3.6.3/bin/mvn clean install'  
-    }
-    
     
     // Récupération Roles Ansible et autres
     stage ('clone git'){ 
         git url: 'https://github.com/Mounagit/Projet_terraformPileComplete.git'
     }
+  
+  /*
 
     stage ('ansible') {
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'login', passwordVariable: 'password']]){
@@ -73,6 +68,15 @@ node ('slave_jenkins') {
                 extras: "--extra-vars 'image=$image login=$login password=$password'"
             )
         }
+    }
+    */
+
+    stage ('Clone Git MongoDB'){
+        git url: 'https://github.com/girldevops/Restful-Webservice.git'
+    }
+
+    stage ('build projet'){
+        sh '/opt/apache-maven-3.6.3/bin/mvn clean install'  
     }
     
     stage ('Publish test results') {
